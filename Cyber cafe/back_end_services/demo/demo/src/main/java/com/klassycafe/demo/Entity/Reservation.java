@@ -121,6 +121,8 @@ public class Reservation {
     			"\",\"numberPeople\": \""+this.numberPeople.toString()+
     			"\",\"email\": \""+this.email+
     			"\",\"Year\": \""+this.year.toString()+
+    			"\",\"Month\": \""+this.month.toString()+
+    			"\",\"Day\": \""+this.day.toString()+
     			"\"}";
     	return formatted_out;
     }

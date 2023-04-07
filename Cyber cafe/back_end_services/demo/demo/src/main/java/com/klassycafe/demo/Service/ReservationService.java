@@ -54,19 +54,19 @@ public class ReservationService {
 			 Reservation tmp = res_list.get(i);
 			 
 				if( tmp.getTimeOfDay().equalsIgnoreCase(reserve.getTimeOfDay()) &&
-						tmp.getDay() == reserve.getDay() &&
-						tmp.getMonth() == reserve.getMonth() &&
-						tmp.getYear() == reserve.getYear()) {
+						tmp.getDay().intValue() == reserve.getDay().intValue() &&
+						tmp.getMonth().intValue() == reserve.getMonth().intValue() &&
+						tmp.getYear().intValue() == reserve.getYear().intValue()) {
 					// tmp_list.add(tmp);
 					guestNum = guestNum + tmp.getNumberPeople();
 				}
 		}
 		
 		// If guests already booked plus guests with new booking less than max seating create booking
-		if( guestNum + reserve.getNumberPeople() <=  this.maxSeating ) {
+		if( guestNum.intValue() + reserve.getNumberPeople().intValue() <=  this.maxSeating ) {
 			this.createReservation(reserve);
 			return true;
 		}
-		return true;
+		return false;
 	}
 }
