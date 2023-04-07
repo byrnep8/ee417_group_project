@@ -2,6 +2,8 @@ package com.klassycafe.demo.Entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /*
  * 	Author: Patrick Byrne
  * 
@@ -17,7 +19,7 @@ public class Reservation {
 	// @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String timeOfDay;
-	private String name;
+	private String firstName, lastName;
 	private String email;
 	private Integer numberPeople;
 	private Integer month, year, day;
@@ -28,17 +30,19 @@ public class Reservation {
 	}
 	
 	// Constructor
-	public Reservation(String name, String email, String timeOfDay, Integer numberPeople, Date date) {
+	public Reservation(String firstName, String lastName, String email, String timeOfDay, Integer numberPeople, Integer year, Integer month, Integer day) {
 		this.email = email;
-		this.name = name;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.timeOfDay = timeOfDay;
 		this.numberPeople = numberPeople;
-		this.year = date.getYear()+1900;
-		this.month = date.getMonth();
-		this.day = date.getDay();
+		this.year = year;
+		this.month = month;
+		this.day = day;
 	}
 	
 	// Getters for the class properties
+	@JsonIgnore
 	 public Long getId() {
         return this.id;
     }
@@ -47,8 +51,12 @@ public class Reservation {
         return this.timeOfDay;
     }
 
-    public String getName() {
-        return this.name;
+    public String getFirstName() {
+        return this.firstName;
+    }
+    
+    public String getLastName() {
+        return this.lastName;
     }
 
     public Integer getNumberPeople() {
@@ -66,6 +74,7 @@ public class Reservation {
     }
 
     // Setters
+    @JsonIgnore
     public void setId(Long id) {
         this.id = id;
     }
@@ -74,8 +83,12 @@ public class Reservation {
         this.timeOfDay = timeOfDay;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String name) {
+        this.firstName = name;
+    }
+    
+    public void setLastName(String name) {
+        this.lastName = name;
     }
     
     public void setMonth(Integer month) {

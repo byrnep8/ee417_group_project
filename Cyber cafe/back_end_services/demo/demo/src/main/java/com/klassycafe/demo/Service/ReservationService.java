@@ -21,8 +21,8 @@ public class ReservationService {
 	// Date is deprecated but still works, year starts at 1900
 	Date date = new Date(123, 4, 5);
 	
-	List<Reservation> demo = List.of(new Reservation("Patrick Byrne", "patb@gmail.com", "Breakfast", 4, date), 
-			new Reservation("Kevin Connaughton", "kevc@gmail.com", "Breakfast", 2, date));
+	List<Reservation> demo = List.of(new Reservation("Patrick", "Byrne", "patb@gmail.com", "Breakfast", 4, 2023, 4, 5), 
+			new Reservation("Kevin", "Connaughton", "kevc@gmail.com", "Breakfast", 2, 2023, 4, 5));
 	
 	public ReservationService() {
 	}

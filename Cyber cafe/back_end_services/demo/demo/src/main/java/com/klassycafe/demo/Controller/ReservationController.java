@@ -53,6 +53,7 @@ public class ReservationController {
 	@PostMapping("/post/reservations")
 	@CrossOrigin("*")
 	public ResponseEntity createReservation(@RequestBody @Validated @NonNull Reservation reserve) {
+		System.out.println("Received Post request");
 		List<Reservation> resList = resService.listReservations();
 		
 		// Checking if reservation is present
