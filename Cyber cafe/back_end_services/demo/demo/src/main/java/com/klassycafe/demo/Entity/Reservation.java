@@ -46,6 +46,10 @@ public class Reservation {
 	 public Long getId() {
         return this.id;
     }
+	
+	public String getEmail() {
+		return this.email;
+	}
 
     public String getTimeOfDay() {
         return this.timeOfDay;
@@ -79,6 +83,10 @@ public class Reservation {
         this.id = id;
     }
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
     public void setTimeOfDay(String timeOfDay) {
         this.timeOfDay = timeOfDay;
     }
@@ -104,5 +112,16 @@ public class Reservation {
 
     public void setNumberPeople(Integer numberPeople) {
         this.numberPeople = numberPeople;
+    }
+    
+    @Override
+    public String toString() {
+    	String formatted_out = "{\"firstName\": \""+this.firstName+
+    			"\",\"lastName\": \""+this.lastName+
+    			"\",\"numberPeople\": \""+this.numberPeople.toString()+
+    			"\",\"email\": \""+this.email+
+    			"\",\"Year\": \""+this.year.toString()+
+    			"\"}";
+    	return formatted_out;
     }
 }

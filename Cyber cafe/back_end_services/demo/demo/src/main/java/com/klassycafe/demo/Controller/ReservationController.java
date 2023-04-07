@@ -2,6 +2,7 @@ package com.klassycafe.demo.Controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,9 @@ import io.micrometer.common.lang.NonNull;
 
 @RestController()
 public class ReservationController {
-
+	@Autowired
 	private final ReservationService resService;
+	
 	
 	public ReservationController(ReservationService resService ) {
 		this.resService = resService;
@@ -52,19 +54,18 @@ public class ReservationController {
 	 */
 	@PostMapping("/post/reservations")
 	@CrossOrigin("*")
-	public ResponseEntity createReservation(@RequestBody @Validated @NonNull Reservation reserve) {
-		System.out.println("Received Post request");
+	public ResponseEntity createReservation(@RequestBody @Validated @NonNull Reservation reserve1) {
+
+		System.out.println(reserve1);
 		List<Reservation> resList = resService.listReservations();
-		
 		// Checking if reservation is present
-		if( !resService.checkReservations(resList, reserve) ) {
+		if( !resService.checkReservations(resList, reserve1) ) {
 			ResponseEntity response = new ResponseEntity<>("Reservation not made, time slot is filled", HttpStatus.BAD_REQUEST);
 			// Responding indicating not accepted
 			return response;
 		}
-		
-		ResponseEntity response = new ResponseEntity<>("Reservation made", HttpStatus.ACCEPTED);
+		System.out.println("Success");
 		// Responding indicating success
-		return response;
+		return ResponseEntity.status(HttpStatusCode.valueOf(201)).build();
 	}
 }

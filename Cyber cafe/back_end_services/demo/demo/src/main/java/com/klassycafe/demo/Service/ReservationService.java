@@ -22,7 +22,8 @@ public class ReservationService {
 	Date date = new Date(123, 4, 5);
 	
 	List<Reservation> demo = List.of(new Reservation("Patrick", "Byrne", "patb@gmail.com", "Breakfast", 4, 2023, 4, 5), 
-			new Reservation("Kevin", "Connaughton", "kevc@gmail.com", "Breakfast", 2, 2023, 4, 5));
+			new Reservation("Kevin", "Connaughton", "kevc@gmail.com", "Breakfast", 2, 2023, 4, 5),
+			new Reservation("Arun", "Rathnasami", "arun@gmail.com", "Breakfast", 1, 2023, 4, 5));
 	
 	public ReservationService() {
 	}
@@ -40,28 +41,32 @@ public class ReservationService {
 	
 	public void createReservation(Reservation reserve) {
 		// Add reservation to database, local list for now
-		demo.add(reserve);
+		// demo.add(reserve);
+		
 	}
 	
 	// Function to check if the reservation already exists
 	public boolean checkReservations(List<Reservation> res_list, Reservation reserve) {
 		// List<Reservation> tmp_list = new Vector<Reservation>();
-		int guestNum = 0;
-		for( int i=0; i < res_list.size()-1; i++ ) {
-			Reservation tmp = res_list.get(i);
-			
-			// Checking the time of day
-			if( tmp.getTimeOfDay().equalsIgnoreCase(reserve.getTimeOfDay()) ) {
-				// tmp_list.add(tmp);
-				guestNum = guestNum + tmp.getNumberPeople();
-			}
+		Integer guestNum = 0;
+		
+		for( int i=0; i < res_list.size(); i++ ) {
+			 Reservation tmp = res_list.get(i);
+			 
+				if( tmp.getTimeOfDay().equalsIgnoreCase(reserve.getTimeOfDay()) &&
+						tmp.getDay() == reserve.getDay() &&
+						tmp.getMonth() == reserve.getMonth() &&
+						tmp.getYear() == reserve.getYear()) {
+					// tmp_list.add(tmp);
+					guestNum = guestNum + tmp.getNumberPeople();
+				}
 		}
 		
 		// If guests already booked plus guests with new booking less than max seating create booking
-		if( guestNum + reserve.getNumberPeople() <  maxSeating + 1 ) {
+		if( guestNum + reserve.getNumberPeople() <=  this.maxSeating ) {
 			this.createReservation(reserve);
 			return true;
 		}
-		return false;
+		return true;
 	}
 }
