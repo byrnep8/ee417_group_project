@@ -19,7 +19,7 @@ $(document).ready(function() {
   							
   							var formData = {  							//Formats the inputs as json
   								firstName: $("#firstName").val(),
-  								lastName: $("#lastName"),
+  								lastName: $("#lastName").val(),
   								email: $("#email").val(),
   								numberPeople: $("#number-guests").val(),
   								timeOfDay: $("#time").val(),
@@ -28,8 +28,10 @@ $(document).ready(function() {
   								year: year,
   								timeOfDay: $("#message").val()
   							};
+  							
   							//stringify's the JSONm data and POST;'s it to the submit-team endpoint to nbe stored
   							var jsonData = JSON.stringify(formData);
+  							console.log(jsonData);
   							$.ajax({
   								url: "http://localhost:8080/post/reservations",
   								type: "POST",
