@@ -14,6 +14,9 @@
         width: 80%;
         margin: 0 auto;
       }
+      h1 {
+      	text-align: center;
+      }
       th, td {
         padding: 8px;
         text-align: left;
@@ -29,12 +32,10 @@
 
 <body> 
  <h1>Reservation List</h1>
-    <table>
+    <table id = 'registration-table'>
       <thead>
         <tr>
-          <th>Day</th>
-          <th>Month</th>
-          <th>Year</th>
+          <th>Date (dd/mm/yy)</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Email</th>
@@ -56,10 +57,12 @@
           // Iterate through the JSON data and create table rows for each registration
           data.forEach(registration => {
             const row = document.createElement('tr');
+            const date = new Date(`${registration.year}-${registration.month}-${registration.day}`);
+            const formattedDate = date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' });
+           
+            
             row.innerHTML = `
-              <td>${registration.day}</td>
-              <td>${registration.month}</td>
-              <td>${registration.year}</td>
+              <td>${formattedDate}</td>
               <td>${registration.firstName}</td>
               <td>${registration.lastName}</td>
               <td>${registration.email}</td>
@@ -69,6 +72,21 @@
             `;
             registrationData.appendChild(row);
           });
+       // Get the table and rows
+          const table = document.getElementById('registration-table');
+          const rows = Array.from(table.getElementsByTagName('tr'));
+          // Remove the header row from the list of rows to sort
+          rows.shift();
+
+          // Sort the rows by date
+          rows.sort((a, b) => {
+            const dateA = new Date(a.cells[0].textContent);
+            const dateB = new Date(b.cells[0].textContent);
+            return dateA - dateB;
+          });
+
+          // Add the sorted rows back to the table
+          rows.forEach(row => table.appendChild(row));
         })
         .catch(error => console.error(error));
     </script>

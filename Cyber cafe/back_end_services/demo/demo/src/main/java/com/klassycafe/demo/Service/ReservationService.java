@@ -23,7 +23,7 @@ public class ReservationService {
 	
 	List<Reservation> demo = List.of(new Reservation("Patrick", "Byrne", "patb@gmail.com", "Breakfast", 4, 2023, 4, 5), 
 			new Reservation("Kevin", "Connaughton", "kevc@gmail.com", "Breakfast", 2, 2023, 4, 5),
-			new Reservation("Arun", "Rathnasami", "arun@gmail.com", "Breakfast", 1, 2023, 4, 5));
+			new Reservation("Arun", "Rathnasami", "arun@gmail.com", "Breakfast", 1, 2023, 4, 3));
 	
 	public ReservationService() {
 	}
