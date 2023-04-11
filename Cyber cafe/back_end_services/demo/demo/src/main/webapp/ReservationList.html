@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cyber Cafe Restaurant Dublin</title>
+
+    <!-- Additional CSS Files -->
+    <style>
+      body {
+        background-image: url(assets/images/top-left-bg.jpg);
+        background-size: cover;
+      }
+      table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: 0 auto;
+      }
+      th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+    
+</head>
+
+
+<body> 
+ <h1>Reservation List</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Month</th>
+          <th>Year</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th> Phone Number </th>
+          <th>Number of People</th>
+          <th>Message</th>
+          
+        </tr>
+      </thead>
+      <tbody id='registration-data'>
+      </tbody>
+    </table>
+    <script>
+      // Use fetch API to get the JSON data from the server
+      fetch('http://localhost:8080/get/reservations')
+        .then(response => response.json())
+        .then(data => {
+          const registrationData = document.getElementById('registration-data');
+          // Iterate through the JSON data and create table rows for each registration
+          data.forEach(registration => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${registration.day}</td>
+              <td>${registration.month}</td>
+              <td>${registration.year}</td>
+              <td>${registration.firstName}</td>
+              <td>${registration.lastName}</td>
+              <td>${registration.email}</td>
+              <td>${registration.phone}</td>
+              <td>${registration.numberPeople}</td>
+              <td>${registration.message}</td>
+            `;
+            registrationData.appendChild(row);
+          });
+        })
+        .catch(error => console.error(error));
+    </script>
+</body>
+</html>
