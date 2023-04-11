@@ -4,6 +4,11 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /*
  * 	Author: Patrick Byrne
  * 
@@ -14,6 +19,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 // import jakarta.persistence.*;
 
 // @Entity(name="reservation")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Reservation {
 	// @Id
 	// @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,13 +30,9 @@ public class Reservation {
 	private String timeOfDay;
 	private String firstName, lastName;
 	private String email;
+	String message;
 	private Integer numberPeople;
 	private Integer month, year, day;
-	
-	// Constructor
-	public Reservation() {
-		
-	}
 	
 	// Constructor
 	public Reservation(String firstName, String lastName, String email, String timeOfDay, Integer numberPeople, Integer year, Integer month, Integer day) {
@@ -120,6 +125,7 @@ public class Reservation {
     			"\",\"lastName\": \""+this.lastName+
     			"\",\"numberPeople\": \""+this.numberPeople.toString()+
     			"\",\"email\": \""+this.email+
+    			"\",\"message\": \""+this.message+
     			"\",\"Year\": \""+this.year.toString()+
     			"\",\"Month\": \""+this.month.toString()+
     			"\",\"Day\": \""+this.day.toString()+

@@ -26,7 +26,7 @@ $(document).ready(function() {
   								day: day,
   								month: month,
   								year: year,
-  								timeOfDay: $("#message").val()
+  								message: $("#message").val()
   							};
   							
   							//stringify's the JSONm data and POST;'s it to the submit-team endpoint to nbe stored
