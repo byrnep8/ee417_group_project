@@ -12,7 +12,7 @@ public class Role {
 	
 	// @Column(nullable = false)
     // @Enumerated(EnumType.STRING)
-    private RoleName name;
+//    private RoleName name;
 	
 	// @ManyToMany(mappedBy = "roles")
 	private List<User> users;
@@ -29,13 +29,13 @@ public class Role {
 		this.id = id;
 	}
 
-	public RoleName getName() {
-		return name;
-	}
-
-	public void setName(RoleName name) {
-		this.name = name;
-	}
+//	public RoleName getName() {
+//		return name;
+//	}
+//
+//	public void setName(RoleName name) {
+//		this.name = name;
+//	}
 
 	public List<User> getUsers() {
 		return users;
