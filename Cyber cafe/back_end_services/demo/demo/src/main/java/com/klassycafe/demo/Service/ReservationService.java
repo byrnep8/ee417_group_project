@@ -10,39 +10,98 @@ import java.util.List;
 import java.util.Vector;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.klassycafe.demo.Entity.Reservation;
+import com.klassycafe.demo.Repository.ReservationRepository;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Service
 public class ReservationService {
 
 	private static Integer maxSeating = 10;
-	// Date is deprecated but still works, year starts at 1900
-	Date date = new Date(123, 4, 5);
+	private static int year = 0;
+	private static int month = 0;
+	private static int day = 0;
+	private static String timeOfDay = "";
 	
-	List<Reservation> demo = List.of(new Reservation("Patrick", "Byrne", "patb@gmail.com", "Breakfast", 4, 2023, 4, 5), 
-			new Reservation("Kevin", "Connaughton", "kevc@gmail.com", "Breakfast", 2, 2023, 4, 5),
-			new Reservation("Arun", "Rathnasami", "arun@gmail.com", "Breakfast", 1, 2023, 4, 3));
+	@Autowired
+	private final ReservationRepository resRepo;
 	
-	public ReservationService() {
+	@Autowired
+	public ReservationService(ReservationRepository resRepo) {
+		this.resRepo = resRepo;
 	}
 	
-	// Placeholder for function to get list of reservations from database
 	public List<Reservation> listReservations() {
+		List<Reservation> res_list = new Vector();
+		List<Reservation> tmp_list = new Vector();
+		res_list = this.listAllReservations();
+		if (year == 0 && month ==0 && this.day == 0) {
+			if(timeOfDay != "") {
+				tmp_list = this.filterReservationsTimeOfDay(res_list, timeOfDay);
+			}
+		}
+		else {
+			tmp_list=  this.filterReservationsDate(res_list, year, month, day);
+			if(timeOfDay != "") {
+				tmp_list = this.filterReservationsTimeOfDay(tmp_list, timeOfDay);
+			}
+		}
+		return tmp_list;
+	}
+	// Placeholder for function to get list of reservations from database
+	public List<Reservation> listAllReservations() {
 		// TODO Auto-generated method stub
-		return demo;
+		return resRepo.findAll();
 	}
 	
-	// Placeholder for filtering of list by time day
-	public List<Reservation> filterReservations(List<Reservation> reserve, String timeOfDay){
-		return reserve;
+	public static void updateDate(int year1, int month1, int day1) {
+		year = year1;
+		month = month1;
+		day = day1;
 	}
 	
+	public static void updateTimeOfDay(String timeOfDay1) {
+		timeOfDay = timeOfDay1;
+	}
+	
+	// Function for filtering of list by time day
+	public List<Reservation> filterReservationsTimeOfDay(List<Reservation> reserve, String timeOfDay){
+		List<Reservation> res_list = new Vector();
+		for ( Reservation tmp : reserve ) {
+			// If time of day matches append list
+			if ( tmp.getTimeOfDay().equalsIgnoreCase(timeOfDay) ) {
+				res_list.add(tmp);
+			}
+		}
+		return res_list;
+	}
+	
+	// Function for filtering list according to date
+	public List<Reservation> filterReservationsDate(List<Reservation> reserve, int year, int month, int day){
+		List<Reservation> res_list = new Vector();
+		for ( Reservation tmp : reserve ) {
+			// If dates match append the list
+			if ( tmp.getYear() == year && tmp.getMonth() == month && tmp.getDay() == day ) {
+				res_list.add(tmp);
+			}
+		}
+		return res_list;
+	}
+	
+	/*
+	 * Saving reservation to the database
+	 * Use after validating it's use
+	 */
 	public void createReservation(Reservation reserve) {
 		// Add reservation to database, local list for now
 		// demo.add(reserve);
-		
+		this.resRepo.save(reserve);
 	}
 	
 	// Function to check if the reservation already exists
