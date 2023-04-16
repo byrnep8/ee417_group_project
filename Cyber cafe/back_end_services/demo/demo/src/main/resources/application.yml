@@ -1,2 +1,33 @@
 server:
   port: 8080
+
+app:
+  mail:
+    publicKey: ${MJ_APIKEY_PUBLIC} # system property -> you can pass it with -DMJ_APIKEY_PUBLIC=xyz (VM arguments in both intellij and eclipse in run configuration)
+    privateKey: ${MJ_APIKEY_PRIVATE}
+    
+spring:
+  datasource:
+    url: "jdbc:mysql://localhost:3306/cyber_cafe1"
+    username: "root"
+    password: "offaly903"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+  sql:
+    init:
+      mode: always
+      platform: mysql
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
