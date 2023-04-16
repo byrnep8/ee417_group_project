@@ -25,70 +25,123 @@
       th {
         background-color: #f2f2f2;
       }
+      .form-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 20px;
+        padding: 20px;
+        background-color: #f2f2f2;
+      }
+      #get-reservations-btn {
+
+        
+        margin: 20px;
+        padding: 10px 20px;
+        font-size: 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #index-btn {
+        margin: 20px;
+        padding: 10px 20px;
+        font-size: 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .top{
+		background-color: #CCF0EE;
+		text-transform: uppercase;	
+		display: flex;
+		flex-flow: row;
+	}
+	.topItems{
+		display: flex;
+  		flex-direction: column;
+		border-style: solid;
+		justify-content: center;
+		padding-bottom: 10px;
+		padding-top: 10px;
+		flex: 1 1 100px;
+		border-color: #3D99E0;
+		margin: 0px;
+		text-align: center;
+	}
     </style>
     
 </head>
 
 
 <body> 
- <h1>Reservation List</h1>
-    <table id = 'registration-table'>
+	<div class = "top">
+		<div class = "topItems">
+			<button id="get-reservations-btn" onclick="getReservations()">Get All Reservations</button>
+    	</div>
+    	
+		<div class = "topItems">
+      		<div style="text-align: center;">
+      			<h3>Filter Form</h3>
+      			<p>Filter by selecting the time of day or a specific date</p> 
+  				<form style="display: inline-block;">
+    				<label for="timeOfDay" style="display: block; text-align: left;">Time of Day:</label>
+    				<select id="timeOfDay" name="timeOfDay" style="display: block;">
+      				<option value="">None</option>
+      				<option value="Breakfast">Breakfast</option>
+      				<option value="Lunch">Lunch</option>
+      				<option value="Dinner">Dinner</option>
+    				</select>
+
+    				<label for="day" style="display: block; text-align: left;">Day:</label>
+    				<input type="number" id="day" name="day" min="0" max="31" value="0" required style="display: block;">
+
+    				<label for="month" style="display: block; text-align: left;">Month:</label>
+    				<input type="number" id="month" name="month" min="0" max="12" value="0" required style="display: block;">
+
+    				<label for="year" style="display: block; text-align: left;">Year:</label>
+    				<input type="number" id="year" name="year" min="2023" value="0" required style="display: block;">
+
+    				<button type="button" onclick="filterForm()">Filter</button>
+  				</form>
+			</div>
+      	</div>
+      
+        
+    	<div class = "topItems">
+    		<button id="index-btn" onclick="location.href='index.html'">Go to Main Website</button>
+    	</div>
+    </div>
+    
+    <br><br>
+    
+    <h1>Reservation List</h1>
+    
+    <table id="registration-table">
       <thead>
         <tr>
           <th>Date (dd/mm/yy)</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Email</th>
-          <th> Phone Number </th>
+          <th>Phone Number</th>
           <th>Number of People</th>
           <th>Message</th>
-          
         </tr>
       </thead>
-      <tbody id='registration-data'>
+      <tbody id="registration-data">
       </tbody>
     </table>
-    <script>
-      // Use fetch API to get the JSON data from the server
-      fetch('http://localhost:8080/get/reservations')
-        .then(response => response.json())
-        .then(data => {
-          const registrationData = document.getElementById('registration-data');
-          // Iterate through the JSON data and create table rows for each registration
-          data.forEach(registration => {
-            const row = document.createElement('tr');
-            const date = new Date(`${registration.year}-${registration.month}-${registration.day}`);
-            const formattedDate = date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' });
-           
-            
-            row.innerHTML = `
-              <td>${formattedDate}</td>
-              <td>${registration.firstName}</td>
-              <td>${registration.lastName}</td>
-              <td>${registration.email}</td>
-              <td>${registration.phone}</td>
-              <td>${registration.numberPeople}</td>
-              <td>${registration.message}</td>
-            `;
-            registrationData.appendChild(row);
-          });
-       // Get the table and rows
-          const table = document.getElementById('registration-table');
-          const rows = Array.from(table.getElementsByTagName('tr'));
-          // Remove the header row from the list of rows to sort
-          rows.shift();
+    
+    
 
-          // Sort the rows by date
-          rows.sort((a, b) => {
-            const dateA = new Date(a.cells[0].textContent);
-            const dateB = new Date(b.cells[0].textContent);
-            return dateA - dateB;
-          });
-
-          // Add the sorted rows back to the table
-          rows.forEach(row => table.appendChild(row));
-        })
-        .catch(error => console.error(error));
-    </script>
+    <script src="assets/js/get_requests.js"></script>
+    
+    
+    
 </body>
 </html>

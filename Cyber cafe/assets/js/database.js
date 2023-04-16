@@ -14,13 +14,14 @@ $(document).ready(function() {
                             console.log(day);
                             const month = $("#date").val().substring(3,5);
                             console.log(month);
-                            const year = $("#date").val().substring(8,10);
+                            const year = $("#date").val().substring(6,10);
                             console.log(year);
   							
   							var formData = {  							//Formats the inputs as json
   								firstName: $("#firstName").val(),
   								lastName: $("#lastName").val(),
   								email: $("#email").val(),
+  								phoneNum: $("#phone").val(),
   								numberPeople: $("#number-guests").val(),
   								timeOfDay: $("#time").val(),
   								day: day,
@@ -46,5 +47,7 @@ $(document).ready(function() {
   								}
   							});
   						});
+  						
+  	
   					});
   					
