@@ -1,4 +1,3 @@
-// Use fetch API to get the JSON data from the server
 
 function getToken() {
     var jwtBearerToken = localStorage.getItem("token");
@@ -17,6 +16,7 @@ function fetchWithToken(url, options) {
     return fetch(url, options);
 }
 
+//When this function is called it gets all of the reservation data from the backend and populates the table with it
 function getReservations() {
   fetchWithToken('http://localhost:8080/get/reservations')
     .then(response => response.json())
@@ -26,10 +26,12 @@ function getReservations() {
       data.forEach(registration => {
         // Create table row for each registration
         const row = document.createElement('tr');
+        //Format the date to be show as (dd/mm/yy)
         const date = new Date(`${registration.year}-${registration.month}-${registration.day}`);
         const formattedDate = date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' });
         row.innerHTML = `
           <td>${formattedDate}</td>
+          <td>${registration.timeOfDay}</td>
           <td>${registration.firstName}</td>
           <td>${registration.lastName}</td>
           <td>${registration.email}</td>
@@ -58,6 +60,7 @@ function getReservations() {
     .catch(error => console.error(error));
 }
 
+//Function to get the data that has been filtered using filterForm(). This is called in the filterForm function. Works same as above
 function getFilteredReservations(){
   fetchWithToken('http://localhost:8080/get/reservations_specified')
     .then(response => response.json())
@@ -73,6 +76,7 @@ function getFilteredReservations(){
 
         row.innerHTML = `
           <td>${formattedDate}</td>
+          <td>${registration.timeOfDay}</td>
           <td>${registration.firstName}</td>
           <td>${registration.lastName}</td>
           <td>${registration.email}</td>
@@ -101,9 +105,7 @@ function getFilteredReservations(){
     .catch(error => console.error(error));
 }
 
-        
-        
-       
+//Function to filter the form. It takes in the requested filters and posts them to the backend fot filtering
 function filterForm() {
         // Get values from form inputs
         const timeOfDay = document.getElementById("timeOfDay").value;
@@ -136,14 +138,16 @@ function filterForm() {
           getFilteredReservations();
       }
       
-  // get the input field elements
-  const dayInput = document.getElementById("day");
-  const monthInput = document.getElementById("month");
-  const yearInput = document.getElementById("year");
+//All funcitons below are used for form validation  
+    
+// get the input field elements
+const dayInput = document.getElementById("day");
+const monthInput = document.getElementById("month");
+const yearInput = document.getElementById("year");
 
-  // add an event listener for the "input" event on the day input field
-  dayInput.addEventListener("input", function(event) {
-    const dayValue = event.target.value;
+// add an event listener for the "input" event on the day input field
+dayInput.addEventListener("input", function(event) {
+	const dayValue = event.target.value;
 
     // if the day value is not a number or is outside the range of 0 to 31, set the value to 0
     if (isNaN(dayValue) || dayValue < 0 || dayValue > 31) {

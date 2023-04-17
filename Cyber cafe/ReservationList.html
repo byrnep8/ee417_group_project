@@ -3,7 +3,7 @@
 <head>
     <title>Cyber Cafe Restaurant Dublin</title>
 
-    <!-- Additional CSS Files -->
+    <!-- Internal CSS information for this page alone -->
     <style>
       body {
         background-image: url(assets/images/top-left-bg.jpg);
@@ -79,11 +79,14 @@
 
 
 <body> 
+	<!-- The top section is a flex box with three items in it. These Items are of class topItems -->
 	<div class = "top">
+		<!-- First Item is a button which populates the table with all reservations -->
 		<div class = "topItems">
 			<button id="get-reservations-btn" onclick="getReservations()">Get All Reservations</button>
     	</div>
     	
+    	<!-- Second Item is a form which populates the table with filtered data based on time and date -->
 		<div class = "topItems">
       		<div style="text-align: center;">
       			<h3>Filter Form</h3>
@@ -111,7 +114,7 @@
 			</div>
       	</div>
       
-        
+        <!-- Third Item is a button which brings you back to the main website -->
     	<div class = "topItems">
     		<button id="index-btn" onclick="location.href='index.html'">Go to Main Website</button>
     	</div>
@@ -119,12 +122,14 @@
     
     <br><br>
     
+    <!-- Reservation table which is populated using data stored on the SQL database based onthe selections above -->
     <h1>Reservation List</h1>
     
     <table id="registration-table">
       <thead>
         <tr>
           <th>Date (dd/mm/yy)</th>
+          <th>Time</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Email</th>
