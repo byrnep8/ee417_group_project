@@ -20,17 +20,16 @@
 -- (3,'Murphy', 'Joe','0876875542',"joe.murphy@gmail.com",8,13,4,2023,"Lunch",'Birthday Party'),
 -- (4,'Corcoran', 'Sheila', '0876889543',"sheila@yahoo.com",2,13,4,2023,"Lunch",'Date'),
 -- (5,'Ryan','Ann', '0876856633',"ann@compuserve.net",5,13,4,2023,"Breakfast",'Hangout');
--- select * from customers;
+select * from customers;
 
--- create table users(
---      user_id int NOT NULL AUTO_INCREMENT,
---      username varchar(255) NOT NULL,
---      password varchar(255) NOT NULL,
---      role varchar(255) NOT NULL,
---      PRIMARY KEY (user_id)
--- );
+--  create table users(
+--       user_id int NOT NULL AUTO_INCREMENT,
+--       username varchar(255) NOT NULL,
+--       password varchar(255) NOT NULL,
+--       role varchar(255) NOT NULL,
+--       PRIMARY KEY (user_id)
+--  );
 
--- insert into users(username, password, role)
--- values('admin', '$2a$12$FnZRi2xbvXfSH6vTcZ9.beBDZo2gkR7USg00n75ESOZij3UQNC5dy', 'ADMIN');
-SELECT * FROM users;
--- SELECT * FROM patric_byrne_users;
+--  insert into users(username, password, role)
+--  values('admin', '$2a$12$FnZRi2xbvXfSH6vTcZ9.beBDZo2gkR7USg00n75ESOZij3UQNC5dy', 'ADMIN');
+-- SELECT * FROM users;
