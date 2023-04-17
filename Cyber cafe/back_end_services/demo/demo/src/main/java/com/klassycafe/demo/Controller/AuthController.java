@@ -11,6 +11,7 @@ import com.klassycafe.demo.Service.AuthService;
 
 import lombok.RequiredArgsConstructor;
 
+// Authentication controller for the login processing
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin("*")

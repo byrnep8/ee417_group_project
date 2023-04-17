@@ -12,7 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+// Access denied handler
 public class CustomAccesDeniedHandler implements AccessDeniedHandler {
+	// Throwing Forbidden error if access is denied rather than 401 error
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);

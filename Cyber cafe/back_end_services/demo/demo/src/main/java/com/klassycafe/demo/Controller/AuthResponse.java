@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//Class for states of the auth response
+
 @Data
 @Builder
 @NoArgsConstructor

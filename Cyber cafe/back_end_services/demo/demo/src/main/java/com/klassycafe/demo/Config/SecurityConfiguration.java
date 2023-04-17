@@ -1,6 +1,5 @@
 package com.klassycafe.demo.Config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,7 +13,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
-import com.klassycafe.*;
+import com.klassycafe.demo.Config.*;
 import com.klassycafe.demo.Service.UserService;
 
 import jakarta.servlet.Filter;

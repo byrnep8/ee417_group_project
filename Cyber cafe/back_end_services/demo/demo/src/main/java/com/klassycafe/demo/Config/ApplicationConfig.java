@@ -37,13 +37,13 @@ public class ApplicationConfig {
 	public AuthenticationProvider authenticationProvider() {
 		// Data Access Object
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		// Specify the userdetails function above
+		
 		authProvider.setUserDetailsService(userDetialsService());
 		authProvider.setPasswordEncoder(passwordEncoder());
 		return authProvider;
 	}
 	
-	// Authenticate user from just username and password
+
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();
@@ -53,8 +53,6 @@ public class ApplicationConfig {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		// TODO Auto-generated method stub
-		
 		 return new BCryptPasswordEncoder();
-//		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 }

@@ -40,11 +40,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			return;
 		}
 		
-		// Bearer ends 7 positions into string
+		// Bearer string ends 7 positions into string
 		jwtToken = authHeader.substring(7);
-		// Extract user name from jwt token
+		// Extract user name from token
 		userName = jwtService.extractUserName(jwtToken);
-		// Check username null or if already connected/authenticated if null user not connected
+		
 		if( userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			// Check if user is in database
 			try{
@@ -53,7 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				// Check if token is valid
 				if (jwtService.isTokenValid(jwtToken, user)) {
 					// System.out.println("Token is valid");
-					// Update Security context
+					
 					UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities() );
 					
 					SecurityContextHolder.getContext().setAuthentication(auth);
@@ -63,7 +63,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				System.out.println("Error encountered in token validation");
 			}
 			
-			// Passing filter
+			// Passing to the next chain in the filter
 			filterChain.doFilter(request, response);
 		}
 	}
