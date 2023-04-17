@@ -1,47 +1,21 @@
 package com.klassycafe.demo.Entity;
 
-import java.util.List;
 
-// import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-// @Entity(name="roles")
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role {
-	// @Id
-	// @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
 	
-	// @Column(nullable = false)
-    // @Enumerated(EnumType.STRING)
-//    private RoleName name;
-	
-	// @ManyToMany(mappedBy = "roles")
-	private List<User> users;
-	
-	public Role() {
-		
-	}
-	
-	public Long getId() {
-		return id;
-	}
+	private Integer id;
+	private RoleName role;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
-//	public RoleName getName() {
-//		return name;
-//	}
-//
-//	public void setName(RoleName name) {
-//		this.name = name;
-//	}
-
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
 }

@@ -1,10 +1,5 @@
 server:
   port: 8080
-
-app:
-  mail:
-    publicKey: ${MJ_APIKEY_PUBLIC} # system property -> you can pass it with -DMJ_APIKEY_PUBLIC=xyz (VM arguments in both intellij and eclipse in run configuration)
-    privateKey: ${MJ_APIKEY_PRIVATE}
     
 spring:
   datasource:

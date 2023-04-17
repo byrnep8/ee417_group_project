@@ -1,6 +1,24 @@
 // Use fetch API to get the JSON data from the server
+
+function getToken() {
+    var jwtBearerToken = localStorage.getItem("token");
+    return jwtBearerToken;
+  }
+  
+function fetchWithToken(url, options) {
+    const jwtBearerToken = getToken();
+
+    if (jwtBearerToken) {
+        options = options || {};
+        options.headers = options.headers || {};
+        options.headers.Authorization = `Bearer ${jwtBearerToken}`;
+    }
+    // console.log(options.headers);
+    return fetch(url, options);
+}
+
 function getReservations() {
-  fetch('http://localhost:8080/get/reservations')
+  fetchWithToken('http://localhost:8080/get/reservations')
     .then(response => response.json())
     .then(data => {
       const registrationData = document.getElementById('registration-data');
@@ -41,7 +59,7 @@ function getReservations() {
 }
 
 function getFilteredReservations(){
-  fetch('http://localhost:8080/get/reservations_specified')
+  fetchWithToken('http://localhost:8080/get/reservations_specified')
     .then(response => response.json())
     .then(data => {
       const registrationData = document.getElementById('registration-data');
@@ -102,7 +120,7 @@ function filterForm() {
         };
 
         // Send reservationData as JSON to server endpoint using POST method
-        fetch("http://localhost:8080/post/reservations_info", {
+        fetchWithToken("http://localhost:8080/post/reservations_info", {
           method: "POST",
           body: JSON.stringify(reservationData),
           headers: {

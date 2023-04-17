@@ -1,91 +1,71 @@
 package com.klassycafe.demo.Entity;
 
+import java.util.Collection;
 import java.util.List;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 // import jakarta.persistence.*;
-
-public class User {
-
-	public User() {
-    }
-
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String email;
-    private String username;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name="users")
+public class User implements UserDetails{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="user_id")
+	private Integer user_id;
+	
+	
+	private String username;
     private String password;
-    private String firstname;
-    private String surname;
     
-//    @ManyToMany 
-//    @JoinTable( 
-//        name = "users_roles", 
-//        joinColumns = @JoinColumn(
-//          name = "user_id", referencedColumnName = "id"), 
-//        inverseJoinColumns = @JoinColumn(
-//          name = "role_id", referencedColumnName = "id")) 
-    private List<Role> roles;
+    @Enumerated(EnumType.STRING)
+    private RoleName role = RoleName.USER;
     
-    public Long getId() {
-        return this.id;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public String getUsername() {
-        return this.username;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public String getFirstname() {
-        return this.firstname;
-    }
-
-    public String getSurname() {
-        return this.surname;
-    }
-
-    public List<Role> getRoles() {
-        return this.roles;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public String toString() {
-        return "User(id=" + this.getId() + ", email=" + this.getEmail() + ", username=" + this.getUsername() + ", password=" + this.getPassword() + ", firstname=" + this.getFirstname() + ", surname=" + this.getSurname() + ", roles=" + this.getRoles() + ")";
-    }
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return List.of(new SimpleGrantedAuthority(role.name()));
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
     
 }
