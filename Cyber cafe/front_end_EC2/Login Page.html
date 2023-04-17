@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body>
+  <h1>Login Page</h1>
+  <form onsubmit="return login()">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <!-- <button type="submit">Login</button> -->
+	
+  </form><button onclick="login()">Login</button>
+  <script>
+    function login() {
+      // Retrieve the values of the username and password fields
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+	  
+	  console.log(username);
+	  console.log(password);
+      // Check if the username and password match the expected values
+/*       if (username === 'admin' && password === 'admin') {
+    	  window.location.href = 'ReservationList.html'; // Load the new webpage
+          return false;
+      } else {
+        alert('Incorrect username or password. Please try again.');
+        return false;
+      }*/
+	  const url = "http://34.244.173.87:8080/KlassyCafe/authentication";
+	  fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "username": username,
+            "password": password
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if( data == "" ){
+                alert("Username or Password Incorrect");
+                return;
+            }
+            var rolesString = JSON.stringify(data.role);
+            const token = data.token; // assuming the token is returned as a property named 'token' in the response
+            console.log(token);
+            localStorage.setItem("token", token);
+            localStorage.setItem("roles", rolesString);
+            window.location.href= "ReservationList.html";
+        })
+        .catch(error => console.error('Error:', error))
+		
+    }
+  </script>
+</body>
+</html>

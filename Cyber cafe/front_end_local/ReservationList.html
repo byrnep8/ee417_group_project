@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cyber Cafe Restaurant Dublin</title>
+
+    <!-- Internal CSS information for this page alone -->
+    <style>
+      body {
+        background-image: url(assets/images/top-left-bg.jpg);
+        background-size: cover;
+      }
+      table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: 0 auto;
+      }
+      h1 {
+      	text-align: center;
+      }
+      th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .form-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 20px;
+        padding: 20px;
+        background-color: #f2f2f2;
+      }
+      #get-reservations-btn {
+
+        
+        margin: 20px;
+        padding: 10px 20px;
+        font-size: 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #index-btn {
+        margin: 20px;
+        padding: 10px 20px;
+        font-size: 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .top{
+		background-color: #CCF0EE;
+		text-transform: uppercase;	
+		display: flex;
+		flex-flow: row;
+	}
+	.topItems{
+		display: flex;
+  		flex-direction: column;
+		border-style: solid;
+		justify-content: center;
+		padding-bottom: 10px;
+		padding-top: 10px;
+		flex: 1 1 100px;
+		border-color: #3D99E0;
+		margin: 0px;
+		text-align: center;
+	}
+    </style>
+    
+</head>
+
+
+<body> 
+	<!-- The top section is a flex box with three items in it. These Items are of class topItems -->
+	<div class = "top">
+		<!-- First Item is a button which populates the table with all reservations -->
+		<div class = "topItems">
+			<button id="get-reservations-btn" onclick="getReservations()">Get All Reservations</button>
+    	</div>
+    	
+    	<!-- Second Item is a form which populates the table with filtered data based on time and date -->
+		<div class = "topItems">
+      		<div style="text-align: center;">
+      			<h3>Filter Form</h3>
+      			<p>Filter by selecting the time of day or a specific date</p> 
+  				<form style="display: inline-block;">
+    				<label for="timeOfDay" style="display: block; text-align: left;">Time of Day:</label>
+    				<select id="timeOfDay" name="timeOfDay" style="display: block;">
+      				<option value="">None</option>
+      				<option value="Breakfast">Breakfast</option>
+      				<option value="Lunch">Lunch</option>
+      				<option value="Dinner">Dinner</option>
+    				</select>
+
+    				<label for="day" style="display: block; text-align: left;">Day:</label>
+    				<input type="number" id="day" name="day" min="0" max="31" value="0" required style="display: block;">
+
+    				<label for="month" style="display: block; text-align: left;">Month:</label>
+    				<input type="number" id="month" name="month" min="0" max="12" value="0" required style="display: block;">
+
+    				<label for="year" style="display: block; text-align: left;">Year:</label>
+    				<input type="number" id="year" name="year" min="2023" value="0" required style="display: block;">
+
+    				<button type="button" onclick="filterForm()">Filter</button>
+  				</form>
+			</div>
+      	</div>
+      
+        <!-- Third Item is a button which brings you back to the main website -->
+    	<div class = "topItems">
+    		<button id="index-btn" onclick="location.href='index.html'">Go to Main Website</button>
+    	</div>
+    </div>
+    
+    <br><br>
+    
+    <!-- Reservation table which is populated using data stored on the SQL database based onthe selections above -->
+    <h1>Reservation List</h1>
+    
+    <table id="registration-table">
+      <thead>
+        <tr>
+          <th>Date (dd/mm/yy)</th>
+          <th>Time</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Number of People</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody id="registration-data">
+      </tbody>
+    </table>
+    
+    
+
+    <script src="assets/js/get_requests.js"></script>
+    
+    
+    
+</body>
+</html>
