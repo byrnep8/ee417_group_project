@@ -21,6 +21,7 @@ function getReservations() {
   fetchWithToken('http://localhost:8080/get/reservations')
     .then(response => response.json())
     .then(data => {
+      
       const registrationData = document.getElementById('registration-data');
       registrationData.innerHTML = ''; // Clear the previous contents
       data.forEach(registration => {

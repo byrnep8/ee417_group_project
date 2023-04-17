@@ -1,3 +1,51 @@
+function getToken() {
+    var jwtBearerToken = localStorage.getItem("token");
+    return jwtBearerToken;
+  }
+  
+function fetchWithToken(url, options) {
+    const jwtBearerToken = getToken();
+
+    if (jwtBearerToken) {
+        options = options || {};
+        options.headers = options.headers || {};
+        options.headers.Authorization = `Bearer ${jwtBearerToken}`;
+    }
+    // console.log(options.headers);
+	return fetch(url, options);
+}
+	
+// Get the role stored in local storage, if logged in as an admin check validity of token, display the reservations list link
+function check_role(){
+	var local_role = localStorage.getItem("roles");
+	var token_valid = false;
+	console.log(local_role);
+	// If local Role not present, keep option hidden
+	if( local_role == "" || local_role == null ){
+		// document.getElementById("admin").hidden = "hidden";
+		token_valid = false;
+	}
+	else if( local_role == "ADMIN" ){
+		// Sending Get request to check if token is valid if not set hidden as hidden
+		fetchWithToken('http://localhost:8080/get/reservations')
+		.then(response => response.json())
+		.then(data => {
+			console.log("Token is valid");
+			// document.getElementById("admin").hidden = "";
+			token_valid = true;
+		});
+		
+	}
+
+	if ( token_valid ){
+		document.getElementById("admin").hidden = "";
+	}
+	else{
+		document.getElementById("admin").hidden = "hidden";
+	}
+}
+
+check_role();
 
 //Function to post the data inputted in the form to the submit-team endpoint running on the Spring server
 $(document).ready(function() {
