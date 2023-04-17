@@ -1,7 +1,8 @@
 function getToken() {
     var jwtBearerToken = localStorage.getItem("token");
+	//console.log(jwtBearerToken);
     return jwtBearerToken;
-  }
+}
   
 function fetchWithToken(url, options) {
     const jwtBearerToken = getToken();
@@ -11,30 +12,59 @@ function fetchWithToken(url, options) {
         options.headers = options.headers || {};
         options.headers.Authorization = `Bearer ${jwtBearerToken}`;
     }
-    // console.log(options.headers);
+    console.log(options.headers);
 	return fetch(url, options);
+}
+
+function compareStrings(s1, s2){
+	// console.log(s1);
+	// console.log(s2);
+	if ( s1 == s2 ){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 	
 // Get the role stored in local storage, if logged in as an admin check validity of token, display the reservations list link
 function check_role(){
 	var local_role = localStorage.getItem("roles");
-	var token_valid = false;
+	if( local_role == null ){
+
+	}
+	else{
+		local_role = local_role.replace(/['"]+/g, '');
+	}
+	var s1 = "ADMIN";
+	let token_valid = null;
 	console.log(local_role);
 	// If local Role not present, keep option hidden
-	if( local_role == "" || local_role == null ){
+	if( compareStrings(local_role,  "") || compareStrings(local_role, null) ){
 		// document.getElementById("admin").hidden = "hidden";
 		token_valid = false;
+		console.log(local_role);
 	}
-	else if( local_role == "ADMIN" ){
+	else if( compareStrings(local_role,  s1) ){
 		// Sending Get request to check if token is valid if not set hidden as hidden
 		fetchWithToken('http://localhost:8080/get/reservations')
 		.then(response => response.json())
 		.then(data => {
-			console.log("Token is valid");
-			// document.getElementById("admin").hidden = "";
 			token_valid = true;
-		});
+			console.log("Token is valid");
+		})
+		.catch(error =>
+			token_valid = false
+		);
 		
+	}
+	else{
+		token_valid = false;
+	}
+
+	while( token_valid == null ){
+		wait(200);
+		console.log(token_valid);
 	}
 
 	if ( token_valid ){

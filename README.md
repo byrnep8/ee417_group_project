@@ -16,8 +16,9 @@ reboot or removal of WAR files, if this is the case, the user can redeploy the W
 loaded upon deployment will allow for the files to interface correctly with the necessary services.
 
 The user can also deploy to a local instance of Tomcat 10 to run the backend, if this is the case ensure that it 
-is loaded to Port 8080 and the front end files are labelled "front_end_local". these files will implement the GET 
-and POST requests for localhost:8080 rather than pointing to the external server as in the EC2 files. 
+is loaded to Port 8080 and the front end files are labelled "front_end_local". These files will implement the GET 
+and POST requests for localhost:8080 rather than pointing to the external server as in the EC2 files. There will 
+be an issue where the context path is needed to be changed so this option is not recommended
 
 #################################################################################################################
 ##						Maven Project Deployment					#
